@@ -1,5 +1,18 @@
 load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
 load("@cgrindel_bazel_starlib//bzltidy:defs.bzl", "tidy")
+load("@rules_xcodeproj//xcodeproj:defs.bzl", "top_level_target", "xcodeproj", "xcschemes")
+
+xcodeproj(
+    name = "xcodeproj",
+    generation_mode = "incremental",
+    project_name = "InjectionTest",
+    top_level_targets = [
+        top_level_target(
+            "//Tests:injectionnext_unit_test",
+            target_environments = ["simulator"],
+        ),
+    ],
+)
 
 tidy(
     name = "tidy",
